@@ -1,5 +1,5 @@
 package com.example.firstapp.ui.theme
-
+import com.example.firstapp.ui.theme.FirstAppTheme
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
