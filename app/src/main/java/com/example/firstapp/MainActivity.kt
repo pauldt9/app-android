@@ -29,6 +29,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.firstapp.ui.theme.FirstAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -37,119 +40,27 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             FirstAppTheme {
-                // Main container
-                Box(
-                    Modifier.fillMaxSize()
-                        .background(Color.White),
-                    contentAlignment = Alignment.Center // Align all elements in the center
-                ){
-                    // Elements container
-                    Column(
-                        Modifier.fillMaxWidth(0.8f),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.login_img),
-                            contentDescription = "Login img",
-                            contentScale = ContentScale.Fit,
-                            modifier = Modifier.size(300.dp)
-                        )
-
-                        // Text
-                        SetText("Hello", 40,
-                            FontWeight.Bold, Color.Black,
-                            modifier = Modifier.padding(top = 30.dp)) // Add padding to the top
-                        SetText("Welcome To Little Drop, where", 18,
-                            FontWeight.Normal, Color.Gray)
-                        SetText("you manage your daily tasks", 18,
-                            FontWeight.Normal, Color.Gray,
-                            modifier = Modifier.padding(bottom = 40.dp)) // Add padding to the bottom
-
-                        // Login button
-                        InsertButton("Login", Color(0xFF3642B1),
-                            Color.White, Color(0xFF3642B1), {})
-
-                        // Sign up button
-                        InsertButton("Sign Up", Color.White,
-                            Color(0xFF3642B1), Color(0xFF3642B1), {})
-
-                        SetText("Sign up using", 12, FontWeight.Normal,
-                            Color.Gray, modifier = Modifier.padding(top = 40.dp))
-
-                        // Social media container
-                        Row (
-                            Modifier.fillMaxWidth(0.6f)
-                            .padding(vertical = 10.dp),
-                            horizontalArrangement = Arrangement.Center, // Center the elements horizontally
-                            verticalAlignment = Alignment.CenterVertically
-                        ){
-                            // Facebook logo
-                            Image(
-                                painter = painterResource(id = R.drawable.fb_img),
-                                contentDescription = "Facebook",
-                                contentScale = ContentScale.Fit,
-                                modifier = Modifier.padding(horizontal = 10.dp)
-                                    .size(45.dp)
-                            )
-
-                            // Google+ logo
-                            Image(
-                                painter = painterResource(id = R.drawable.gplus_img),
-                                contentDescription = "Google Plus",
-                                contentScale = ContentScale.Fit,
-                                modifier = Modifier.size(40.dp)
-                            )
-
-                            // LinkedIn logo
-                            Image(
-                                painter = painterResource(id = R.drawable.linkedin_img),
-                                contentDescription = "LinkedIn",
-                                contentScale = ContentScale.Fit,
-                                modifier = Modifier.padding(horizontal = 10.dp)
-                                    .size(40.dp)
-                            )
-                        }
-                    }
-                }
+                AppNavigation()
             }
         }
     }
 }
 
-// Display a text on the screen
+// Display the correct screen based on the route
 @Composable
-fun SetText(newText: String, newFontSize: Int, newFontWeight: FontWeight, newColor: Color, modifier: Modifier = Modifier){
-    Text(
-        text = newText,
-        modifier = modifier,
-        style = TextStyle(
-            fontSize = newFontSize.sp,
-            fontWeight = newFontWeight,
-            color = newColor
-        )
-    )
-}
+fun AppNavigation(){
+    val navController = rememberNavController() // Screen controller
 
-// Display a button on the screen
-@Composable
-fun InsertButton(label: String, bgColor: Color, fontColor: Color, borderColor: Color, onClick: () -> Unit){
-    Box(
-        modifier = Modifier.fillMaxWidth(0.8f)
-            .padding(vertical = 8.dp)
-            .clip(RoundedCornerShape(30.dp)) // Apply rounded corners
-            .border(
-                width = 1.dp,
-                color = borderColor,
-                shape = RoundedCornerShape(30.dp)
-            )
-            .background(
-                color = bgColor,
-                shape = RoundedCornerShape(30.dp)
-            )
-            .clickable(onClick = onClick)
-            .padding(vertical = 8.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(label, color = fontColor, fontWeight = FontWeight.Bold, fontSize = 18.sp)
+    // This is where routes (screens) are defined
+    NavHost(navController, startDestination = "home"){
+        composable("login"){
+            LoginScreen(navController)
+        }
+        composable("signup"){
+            SignUpScreen(navController)
+        }
+        composable("home"){
+            HomeScreen(navController)
+        }
     }
 }
