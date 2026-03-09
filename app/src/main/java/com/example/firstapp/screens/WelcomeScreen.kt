@@ -1,9 +1,7 @@
-package com.example.firstapp
+package com.example.firstapp.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,23 +10,21 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.firstapp.InsertButton
+import com.example.firstapp.R
+import com.example.firstapp.SetText
 
 @Composable
-fun HomeScreen(navController: NavController){
+fun WelcomeScreen(navController: NavController){
     // Main container
     Box(
         Modifier.fillMaxSize()
@@ -48,17 +44,24 @@ fun HomeScreen(navController: NavController){
             )
 
             // Text
-            SetText("Hello", 40,
+            SetText(
+                "Hello", 40,
                 FontWeight.Bold, Color.Black,
-                modifier = Modifier.padding(top = 30.dp)) // Add padding to the top
-            SetText("Welcome To Little Drop, where", 18,
-                FontWeight.Normal, Color.Gray)
-            SetText("you manage your daily tasks", 18,
+                modifier = Modifier.padding(top = 30.dp)
+            ) // Add padding to the top
+            SetText(
+                "Welcome To Little Drop, where", 18,
+                FontWeight.Normal, Color.Gray
+            )
+            SetText(
+                "you manage your daily tasks", 18,
                 FontWeight.Normal, Color.Gray,
-                modifier = Modifier.padding(bottom = 40.dp)) // Add padding to the bottom
+                modifier = Modifier.padding(bottom = 40.dp)
+            ) // Add padding to the bottom
 
             // Login button
-            InsertButton("Login",
+            InsertButton(
+                "Login",
                 Color(0xFF3642B1),
                 Color.White,
                 Color(0xFF3642B1),
@@ -76,8 +79,10 @@ fun HomeScreen(navController: NavController){
             ) { navController.navigate("signup") } // Show sign up screen
 
 
-            SetText("Sign up using", 12, FontWeight.Normal,
-                Color.Gray, modifier = Modifier.padding(top = 40.dp))
+            SetText(
+                "Sign up using", 12, FontWeight.Normal,
+                Color.Gray, modifier = Modifier.padding(top = 40.dp)
+            )
 
             // Social media container
             Row (

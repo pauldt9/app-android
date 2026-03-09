@@ -1,15 +1,11 @@
-package com.example.firstapp
+package com.example.firstapp.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,6 +13,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.firstapp.InsertButton
+import com.example.firstapp.InsertTextField
+import com.example.firstapp.SetText
 
 @Composable
 fun SignUpScreen(navController: NavController){
@@ -40,9 +39,9 @@ fun SignUpScreen(navController: NavController){
 
             InsertTextField("Name", false, modifier = Modifier.fillMaxWidth())
             InsertTextField("Email", false, modifier = Modifier.fillMaxWidth())
+            InsertTextField("Phone Number", false, modifier = Modifier.fillMaxWidth())
             InsertTextField("Password", true, modifier = Modifier.fillMaxWidth())
             InsertTextField("Confirm Password", true, modifier = Modifier.fillMaxWidth())
-            InsertTextField("Phone Number", false, modifier = Modifier.fillMaxWidth())
 
             Row(
                 Modifier.fillMaxWidth(),
