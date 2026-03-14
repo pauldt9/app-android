@@ -1,12 +1,17 @@
 package com.example.firstapp.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -56,7 +61,8 @@ fun SignUpScreen(navController: NavController){
             var confirmPassword by remember { mutableStateOf("") }
 
             fun isValidName(name: String): Boolean {
-                return name.isNotBlank() && name.all { it.isLetter() }
+                val trimmedName = name.trim()
+                return trimmedName.isNotBlank() && trimmedName.all { it.isLetter() || it.isWhitespace() }
             }
 
             fun isValidEmail(email: String): Boolean {
@@ -68,7 +74,7 @@ fun SignUpScreen(navController: NavController){
             }
 
             fun isValidPassword(password: String, confirmPassword: String): Boolean {
-                return password == confirmPassword
+                return password == confirmPassword && password.length >= 8
             }
 
             // Name text field
@@ -80,7 +86,8 @@ fun SignUpScreen(navController: NavController){
                 ), visualTransformation = VisualTransformation.None,
                 value = name,
                 onValueChange = {name = it},
-                label = { Text("Name") }
+                label = { Text("Name") },
+                isError = name.isNotEmpty() && !isValidName(name)
             )
 
             // Email text field
@@ -94,7 +101,8 @@ fun SignUpScreen(navController: NavController){
                 onValueChange = {
                     email = it
                 },
-                label = { Text("Email") }
+                label = { Text("Email") },
+                isError = email.isNotEmpty() && !isValidEmail(email)
             )
 
             // Phone number text field
@@ -106,7 +114,8 @@ fun SignUpScreen(navController: NavController){
                 ), visualTransformation = VisualTransformation.None,
                 value = phoneNumber,
                 onValueChange = {phoneNumber = it},
-                label = { Text("Phone Number") }
+                label = { Text("Phone Number") },
+                isError = phoneNumber.isNotEmpty() && !isValidPhoneNumber(phoneNumber)
             )
 
             // Password text field
@@ -130,21 +139,38 @@ fun SignUpScreen(navController: NavController){
                 ), visualTransformation = PasswordVisualTransformation(),
                 value = confirmPassword,
                 onValueChange = {confirmPassword = it},
-                label = { Text("Confirm Password") }
+                label = { Text("Confirm Password") },
+                isError = confirmPassword.isNotEmpty() && !isValidPassword(password, confirmPassword)
             )
+
+            // Validate form
+            val isFormValid =
+                isValidName(name) &&
+                        isValidEmail(email) &&
+                        isValidPhoneNumber(phoneNumber) &&
+                        isValidPassword(password, confirmPassword)
 
             Row(
                 Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.End
             ) {
-                InsertButton(
-                    "Sign Up",
-                    Color(0xFF3642B1),
-                    Color.White,
-                    Color(0xFF3642B1),
+                Button(
+                    onClick = {navController.navigate("login")},
                     modifier = Modifier.fillMaxWidth(0.35f)
-                ) { navController.navigate("login") }
+                        .padding(vertical = 8.dp),
+                    shape = RoundedCornerShape(30.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF3642B1),
+                        contentColor = Color.White,
+                        disabledContainerColor = Color.LightGray,
+                        disabledContentColor = Color(0xFF3642B1),
+                    ),
+                    border = BorderStroke(1.dp, Color(0xFF3642B1)),
+                    enabled = isFormValid
+                ){
+                    Text("Sign up", fontWeight = FontWeight.Bold)
+                }
             }
         }
     }
