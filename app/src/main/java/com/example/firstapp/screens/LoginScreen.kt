@@ -38,6 +38,7 @@ import com.example.firstapp.InsertButton
 import com.example.firstapp.InsertTextField
 import com.example.firstapp.R
 import com.example.firstapp.SetText
+import com.example.firstapp.isValidEmail
 
 @Composable
 fun LoginScreen(navController: NavController){
@@ -69,10 +70,6 @@ fun LoginScreen(navController: NavController){
             var name by remember { mutableStateOf("") }
             var email by remember { mutableStateOf("") }
             var password by remember { mutableStateOf("") }
-
-            fun isValidEmail(email: String): Boolean {
-                return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
-            }
 
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),

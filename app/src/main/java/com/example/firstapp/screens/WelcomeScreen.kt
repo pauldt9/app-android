@@ -68,7 +68,6 @@ fun WelcomeScreen(navController: NavController){
                 modifier = Modifier.fillMaxWidth(0.8f)
             ) { navController.navigate("login") } // Show login screen
 
-
             // Sign up button
             InsertButton(
                 "Sign Up",
@@ -77,7 +76,6 @@ fun WelcomeScreen(navController: NavController){
                 Color(0xFF3642B1),
                 modifier = Modifier.fillMaxWidth(0.8f)
             ) { navController.navigate("signup") } // Show sign up screen
-
 
             SetText(
                 "Sign up using", 12, FontWeight.Normal,

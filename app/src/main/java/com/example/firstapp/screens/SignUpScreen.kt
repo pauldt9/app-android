@@ -33,6 +33,10 @@ import androidx.navigation.NavController
 import com.example.firstapp.InsertButton
 import com.example.firstapp.InsertTextField
 import com.example.firstapp.SetText
+import com.example.firstapp.isValidEmail
+import com.example.firstapp.isValidName
+import com.example.firstapp.isValidPassword
+import com.example.firstapp.isValidPhoneNumber
 
 @Composable
 fun SignUpScreen(navController: NavController){
@@ -59,23 +63,6 @@ fun SignUpScreen(navController: NavController){
             var phoneNumber by remember { mutableStateOf("") }
             var password by remember { mutableStateOf("") }
             var confirmPassword by remember { mutableStateOf("") }
-
-            fun isValidName(name: String): Boolean {
-                val trimmedName = name.trim()
-                return trimmedName.isNotBlank() && trimmedName.all { it.isLetter() || it.isWhitespace() }
-            }
-
-            fun isValidEmail(email: String): Boolean {
-                return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
-            }
-
-            fun isValidPhoneNumber(phoneNumber: String): Boolean {
-                return phoneNumber.length == 10 && phoneNumber.all { it.isDigit() }
-            }
-
-            fun isValidPassword(password: String, confirmPassword: String): Boolean {
-                return password == confirmPassword && password.length >= 8
-            }
 
             // Name text field
             OutlinedTextField(
